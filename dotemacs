@@ -1,0 +1,122 @@
+;;简单的小配置，让emacs更舒服
+
+;bindding the windows enlarge&shrink to C-F11&F12
+
+(global-set-key [(ctrl f12)] 'shrink-window-horizontally)
+(global-set-key [(ctrl f11)] 'enlarge-window-horizontally)
+
+;; always show line numbers
+(global-linum-mode 1)
+
+
+;;set the title bar 让标题栏显示点有用的信息
+(setq frame-title-format "emacs@%b")
+
+;;光标靠近鼠标鼠标自动移开
+(mouse-avoidance-mode 'animate)
+
+
+
+;;全局剪切板
+(setq x-select-enable-clipboard t)
+
+;鼠标滚轮，默认的滚动太快，这里改为3行
+(defun up-slightly () (interactive) (scroll-up 3))
+(defun down-slightly () (interactive) (scroll-down 3))
+(global-set-key [mouse-4] 'down-slightly)
+(global-set-key [mouse-5] 'up-slightly)
+
+
+
+;;全屏功能 跟gnome相符，绑在F11上
+(global-set-key [(f11)] 'fullscreen)
+(defun fullscreen ()
+  (interactive)
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+    '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+
+
+
+;;关闭自动备份和自动保存，就是"文件名~"和"#文件名#"这样的文件。
+(setq make-backup-files nil) ; stop creating those backup~ files关闭备份和自动保存
+(setq auto-save-default nil) ; stop creating those #autosave# files
+
+
+
+;; config for auto-complete
+(add-to-list 'load-path "/home/backfire/emacs/auto-complete")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "/home/backfire/emacs/auto-complete/ac-dict")
+(ac-config-default)
+
+;; config for gtags-mode
+
+(global-set-key [(f5)] 'gtags-mode)
+
+;; config for cscope
+
+;;(add-to-list 'load-path "/home/backfire/emacs/cscope")
+;;(require 'xcscope)
+
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.32")
+ '(inhibit-startup-screen t)
+ '(linum-mode nil t)
+ '(make-backup-files nil))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "unknown" :family "Monaco")))))
+
+(global-set-key [(f4)] 'ecb-activate)
+
+
+
+
+;;set tabbar 页签功能，需要tabbar.el
+(add-to-list 'load-path "/home/backfire/emacs/tabbar")
+(require 'tabbar)
+(tabbar-mode)
+(global-set-key [(meta right)] 'tabbar-backward-group)
+(global-set-key [(meta left)] 'tabbar-forward-group)
+(global-set-key [(meta up)] 'tabbar-backward)
+(global-set-key [(meta down)] 'tabbar-forward)
+
+
+
+
+
+
+
+
+;;透明设定，ubuntu下不好用，gnome貌似是不支持了
+  
+(global-set-key [f9] 'loop-alpha)  ;;全局绑定F12键为Emacs半透明功能键
+(setq alpha-list '((85 50) (100 100)))  ;;当前窗口和非当前窗口时透明度分别为85、50
+(defun loop-alpha ()
+    (interactive)
+    (let ((h (car alpha-list)))
+        ((lambda (a ab)
+             (set-frame-parameter (selected-frame) 'alpha (list a ab))
+             (add-to-list 'default-frame-alist (cons 'alpha (list a ab))))
+         (car h) (car (cdr h)))
+        (setq alpha-list (cdr (append alpha-list (list h))))))
+
+
+
+
+;;配置cedet
+(add-to-list 'load-path "/home/backfire/emacs/cedet-1.0pre7/common")
+;;(load-file "/home/backfire/emacs/cedet-1.0pre7/common/cedet.el")
+(require 'cedet)
+(require 'semantic-ia)
+(global-ede-mode 1)                      ; Enable the Project management system
+(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
+;(global-srecode-minor-mode 1)            ; Enable template insertion menu
