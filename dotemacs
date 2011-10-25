@@ -44,9 +44,9 @@
 
 
 ;; config for auto-complete
-(add-to-list 'load-path "/home/backfire/emacs/auto-complete")
+(add-to-list 'load-path "~/emacs/auto-complete")
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/home/backfire/emacs/auto-complete/ac-dict")
+(add-to-list 'ac-dictionary-directories "~/emacs/auto-complete/ac-dict")
 (ac-config-default)
 
 ;; config for gtags-mode
@@ -55,7 +55,7 @@
 
 ;; config for cscope
 
-;;(add-to-list 'load-path "/home/backfire/emacs/cscope")
+;;(add-to-list 'load-path "~/emacs/cscope")
 ;;(require 'xcscope)
 
 
@@ -73,7 +73,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "unknown" :family "Monaco")))))
+ )
 
 (global-set-key [(f4)] 'ecb-activate)
 
@@ -81,7 +81,7 @@
 
 
 ;;set tabbar 页签功能，需要tabbar.el
-(add-to-list 'load-path "/home/backfire/emacs/tabbar")
+(add-to-list 'load-path "~/emacs/tabbar")
 (require 'tabbar)
 (tabbar-mode)
 (global-set-key [(meta right)] 'tabbar-backward-group)
@@ -116,8 +116,8 @@
 
 
 ;;配置cedet
-(add-to-list 'load-path "/home/backfire/emacs/cedet-1.0pre7/common")
-;;(load-file "/home/backfire/emacs/cedet-1.0pre7/common/cedet.el")
+(add-to-list 'load-path "~/emacs/cedet-1.0pre7/common")
+;;(load-file "~/emacs/cedet-1.0pre7/common/cedet.el")
 (require 'cedet)
 (require 'semantic-ia)
 (global-ede-mode 1)                      ; Enable the Project management system
@@ -137,12 +137,12 @@
 
 
 ;;配置gtags
-(add-to-list 'load-path "/home/macrov/emacs.el/global")
+(add-to-list 'load-path "/home/macrov/emacs/global")
 (autoload 'gtags-mode "gtags" "" t)
 (setq c-mode-hook '(lambda ()
 		     (gtags-mode 1)))
 
 
 ;;set the cscope
-(add-to-list 'load-path "/home/macrov/emacs.el/cscope")
+(add-to-list 'load-path "/home/macrov/emacs/cscope")
 (require 'xcscope)
