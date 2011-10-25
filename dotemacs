@@ -92,6 +92,9 @@
 
 
 
+;;终端模式下去掉菜单
+(if (equal window-system nil)
+(menu-bar-mode nil))
 
 
 
@@ -124,3 +127,22 @@
 ;;配置w3m
 (add-to-list 'load-path "/home/backfire/emacs/w3m")
 (require 'w3m)
+
+
+
+;;配置自己的info路径
+;;(add-to-list `Info-directory-list "~/info") 这个是23之前版本的配置方式
+(add-to-list `Info-default-directory-list "~/info/lispintro")
+(add-to-list `Info-default-directory-list "~/info/gnu-global")
+
+
+;;配置gtags
+(add-to-list 'load-path "/home/macrov/emacs.el/global")
+(autoload 'gtags-mode "gtags" "" t)
+(setq c-mode-hook '(lambda ()
+		     (gtags-mode 1)))
+
+
+;;set the cscope
+(add-to-list 'load-path "/home/macrov/emacs.el/cscope")
+(require 'xcscope)
