@@ -125,7 +125,7 @@
 ;(global-srecode-minor-mode 1)            ; Enable template insertion menu
 
 ;;配置w3m
-(add-to-list 'load-path "/home/backfire/emacs/w3m")
+(add-to-list 'load-path "~/emacs/w3m")
 (require 'w3m)
 
 
@@ -137,12 +137,22 @@
 
 
 ;;配置gtags
-(add-to-list 'load-path "/home/macrov/emacs/global")
+(add-to-list 'load-path "~/emacs/global")
 (autoload 'gtags-mode "gtags" "" t)
 (setq c-mode-hook '(lambda ()
 		     (gtags-mode 1)))
 
 
 ;;set the cscope
-(add-to-list 'load-path "/home/macrov/emacs/cscope")
+(add-to-list 'load-path "~/emacs/cscope")
 (require 'xcscope)
+
+;;配置showtip.el
+(add-to-list 'load-path "~/emacs/showtip")
+(require 'showtip)
+
+;;配置sdcv.el
+(add-to-list 'load-path "~/emacs/sdcv")
+(require 'sdcv)
+
+
