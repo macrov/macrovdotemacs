@@ -75,7 +75,7 @@
   ;; If there is more than one, they won't work right.
  )
 
-(global-set-key [(f4)] 'ecb-activate)
+;;(global-set-key [(f4)] 'ecb-activate)
 
 
 
@@ -127,6 +127,7 @@
 ;;配置w3m
 (add-to-list 'load-path "~/emacs/w3m")
 (require 'w3m)
+(setq w3m-default-display-inline-images t)
 
 
 
@@ -154,5 +155,6 @@
 ;;配置sdcv.el
 (add-to-list 'load-path "~/emacs/sdcv")
 (require 'sdcv)
-
-
+(global-set-key [(meta p)] 'sdcv-search-input+)
+;;(global-set-key (kbd "M s") 'sdcv-search-pointer+)
+;;(global-set-key (kbd "M S") 'sdcv-search-input)
