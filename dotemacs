@@ -1,3 +1,8 @@
+;;引入网络配置
+;;(load-file "/home/backfire/macrovdotemacs/net/netel")
+
+
+
 ;;简单的小配置，让emacs更舒服
 
 ;bindding the windows enlarge&shrink to C-F11&F12
@@ -125,9 +130,10 @@
 ;(global-srecode-minor-mode 1)            ; Enable template insertion menu
 
 ;;配置w3m
-(add-to-list 'load-path "~/emacs/w3m")
-(require 'w3m)
-(setq w3m-default-display-inline-images t)
+;;(add-to-list 'load-path "~/emacs/w3m")
+;;(require 'w3m)
+;;(setq w3m-default-display-inline-images t)
+
 
 
 
