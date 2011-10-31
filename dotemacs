@@ -20,7 +20,8 @@
 ;;光标靠近鼠标鼠标自动移开
 (mouse-avoidance-mode 'animate)
 
-
+;;配置ibus
+(ibus-mode t)
 
 ;;全局剪切板
 (setq x-select-enable-clipboard t)
