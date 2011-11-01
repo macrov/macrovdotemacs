@@ -70,7 +70,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.32")
+ '(ecb-options-version "2.40")
  '(inhibit-startup-screen t)
  '(linum-mode nil t)
  '(make-backup-files nil))
@@ -81,7 +81,7 @@
   ;; If there is more than one, they won't work right.
  )
 
-;;(global-set-key [(f4)] 'ecb-activate)
+(global-set-key [(f4)] 'ecb-activate)
 
 
 
@@ -121,6 +121,7 @@
 
 
 
+
 ;;配置cedet
 (add-to-list 'load-path "~/emacs/cedet-1.0pre7/common")
 ;;(load-file "~/emacs/cedet-1.0pre7/common/cedet.el")
@@ -128,7 +129,12 @@
 (require 'semantic-ia)
 (global-ede-mode 1)                      ; Enable the Project management system
 (semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
-;(global-srecode-minor-mode 1)            ; Enable template insertion menu
+(global-srecode-minor-mode 1)            ; Enable template insertion menu
+
+;;配置ecb
+(add-to-list 'load-path "~/emacs/ecb-2.40")
+(require 'ecb)
+
 
 ;;配置w3m
 ;;(add-to-list 'load-path "~/emacs/w3m")
