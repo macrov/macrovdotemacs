@@ -13,6 +13,10 @@
 ;; always show line numbers
 (global-linum-mode 1)
 
+;;启用最近打开的功能
+(require 'recentf)
+(recentf-mode t)
+
 
 ;;set the title bar 让标题栏显示点有用的信息
 (setq frame-title-format "emacs@%b")
@@ -59,10 +63,10 @@
 
 (global-set-key [(f5)] 'gtags-mode)
 
-;; config for cscope
+;;config for cscope
 
-;;(add-to-list 'load-path "~/emacs/cscope")
-;;(require 'xcscope)
+;(add-to-list 'load-path "~/emacs/cscope")
+;(require 'xcscope)
 
 
 (custom-set-variables
@@ -70,7 +74,10 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(ecb-layout-window-sizes (quote (("left8" (0.16326530612244897 . 0.2727272727272727) (0.16326530612244897 . 0.22727272727272727) (0.16326530612244897 . 0.29545454545454547) (0.16326530612244897 . 0.18181818181818182)))))
  '(ecb-options-version "2.40")
+ '(ecb-source-path (quote ("/home/backfire/work/android-rocket-d140a")))
+ '(ecb-windows-width 0.23)
  '(inhibit-startup-screen t)
  '(linum-mode nil t)
  '(make-backup-files nil))
@@ -84,16 +91,16 @@
 (global-set-key [(f4)] 'ecb-activate)
 
 
-
+(global-set-key [(f6)] 'emacs-lisp-mode)
 
 ;;set tabbar 页签功能，需要tabbar.el
 (add-to-list 'load-path "~/emacs/tabbar")
 (require 'tabbar)
 (tabbar-mode)
-(global-set-key [(meta right)] 'tabbar-backward-group)
-(global-set-key [(meta left)] 'tabbar-forward-group)
-(global-set-key [(meta up)] 'tabbar-backward)
-(global-set-key [(meta down)] 'tabbar-forward)
+;;(global-set-key [(meta right)] 'tabbar-backward-group)
+;;(global-set-key [(meta left)] 'tabbar-forward-group)
+(global-set-key [(meta prior)] 'tabbar-backward)
+(global-set-key [(meta next)] 'tabbar-forward)
 
 
 
@@ -124,16 +131,80 @@
 
 ;;配置cedet
 (add-to-list 'load-path "~/emacs/cedet-1.0pre7/common")
+(add-to-list 'load-path "~/emacs/cedet-1.0pre7/contrib")
 ;;(load-file "~/emacs/cedet-1.0pre7/common/cedet.el")
 (require 'cedet)
 (require 'semantic-ia)
 (global-ede-mode 1)                      ; Enable the Project management system
 (semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
 (global-srecode-minor-mode 1)            ; Enable template insertion menu
+(require 'semantic-tag-folding nil 'noerror)
+(global-semantic-tag-folding-mode 1)
+(global-set-key [f12] 'semantic-ia-fast-jump)
+(global-set-key [S-f12]
+                (lambda ()
+                  (interactive)
+                  (if (ring-empty-p (oref semantic-mru-bookmark-ring ring))
+                      (error "Semantic Bookmark ring is currently empty"))
+                  (let* ((ring (oref semantic-mru-bookmark-ring ring))
+                         (alist (semantic-mrub-ring-to-assoc-list ring))
+                         (first (cdr (car alist))))
+                    (if (semantic-equivalent-tag-p (oref first tag)
+                                                   (semantic-current-tag))
+                        (setq first (cdr (car (cdr alist)))))
+                    (semantic-mrub-switch-tags first))))
+;(define-key c-mode-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
+(global-set-key (kbd "M-q") 'semantic-ia-complete-symbol-menu)
+(define-key semantic-tag-folding-mode-map (kbd "C-c , -") 'semantic-tag-folding-fold-block)
+(define-key semantic-tag-folding-mode-map (kbd "C-c , +") 'semantic-tag-folding-show-block)
+(define-key semantic-tag-folding-mode-map (kbd "C-_") 'semantic-tag-folding-fold-all)
+(define-key semantic-tag-folding-mode-map (kbd "C-+") 'semantic-tag-folding-show-all)
+
+
+;; (setq semanticdb-project-roots (list (expand-file-name "/")))
+(defconst cedet-user-include-dirs
+  (list 
+   "/home/backfire/work/android-rocket-d140a/kernel/include"
+   "/home/backfire/work/android-rocket-d140a/kernel/arch/arm/include"
+   "/home/backfire/work/android-rocket-d140a/kernel/arch/arm/mach-rk29/include"
+   ""))
+;; (defconst cedet-win32-include-dirs
+;;   (list "C:/MinGW/include"
+;;         "C:/MinGW/include/c++/3.4.5"
+;;         "C:/MinGW/include/c++/3.4.5/mingw32"
+;;         "C:/MinGW/include/c++/3.4.5/backward"
+;;         "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
+;;         "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
+(require 'semantic-c nil 'noerror)
+(let ((include-dirs cedet-user-include-dirs))
+  ;; (when (eq system-type 'windows-nt)
+  ;;   (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
+  (mapc (lambda (dir)
+          (semantic-add-system-include dir 'c++-mode)
+          (semantic-add-system-include dir 'c-mode))
+        include-dirs))
+
 
 ;;配置ecb
 (add-to-list 'load-path "~/emacs/ecb-2.40")
 (require 'ecb)
+;; 各窗口间切换
+(global-set-key [C-left] 'windmove-left)
+(global-set-key [C-right] 'windmove-right)
+(global-set-key [C-up] 'windmove-up)
+(global-set-key [C-down] 'windmove-down)
+ 
+;; 隐藏和显示ecb窗口
+(define-key global-map [(control f1)] 'ecb-hide-ecb-windows)
+(define-key global-map [(control f2)] 'ecb-show-ecb-windows)
+ 
+;; 使某一ecb窗口最大化
+;(define-key global-map "/C-c1" 'ecb-maximize-window-directories)
+;(define-key global-map "/C-c2" 'ecb-maximize-window-sources)
+;(define-key global-map "/C-c3" 'ecb-maximize-window-methods)
+;(define-key global-map "/C-c4" 'ecb-maximize-window-history)
+;; 恢复原始窗口布局
+;(define-key global-map "/C-c`" 'ecb-restore-default-window-sizes)
 
 
 ;;配置w3m
@@ -152,10 +223,12 @@
 
 ;;配置gtags
 (add-to-list 'load-path "~/emacs/global")
-(autoload 'gtags-mode "gtags" "" t)
-(setq c-mode-hook '(lambda ()
-		     (gtags-mode 1)))
-
+;(autoload 'gtags-mode "gtags" "" t)
+;(setq c-mode-hook '(lambda ()
+;		     (gtags-mode 1)))
+(global-set-key (kbd "C-c g f") 'gtags-find-tag)
+(global-set-key (kbd "C-c g p") 'gtags-pop-stack)
+(global-set-key (kbd "C-c g s") 'gtags-select-tag)
 
 ;;set the cscope
 (add-to-list 'load-path "~/emacs/cscope")
@@ -171,3 +244,4 @@
 (global-set-key [(meta p)] 'sdcv-search-input+)
 ;;(global-set-key (kbd "M s") 'sdcv-search-pointer+)
 ;;(global-set-key (kbd "M S") 'sdcv-search-input)
+
