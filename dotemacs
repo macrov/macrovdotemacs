@@ -12,10 +12,15 @@
 ;; always show line numbers
 (global-linum-mode 1)
 
+;;开启ido模式
+(ido-mode t)
+
 ;;启用最近打开的功能
 (require 'recentf)
 (recentf-mode t)
 
+;;开启光标所在行高亮显示
+(global-hl-line-mode t)
 
 ;;set the title bar 让标题栏显示点有用的信息
 (setq frame-title-format "emacs@%b")
@@ -66,6 +71,15 @@
 
 ;(add-to-list 'load-path "~/emacs/cscope")
 ;(require 'xcscope)
+
+;;括号匹配
+(global-set-key "%" 'match-paren)
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+	(t (self-insert-command (or arg 1)))))
 
 
 (custom-set-variables
