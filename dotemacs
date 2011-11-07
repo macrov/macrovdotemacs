@@ -16,6 +16,8 @@
 (require 'recentf)
 (recentf-mode t)
 
+;;ido模式开启
+(ido-mode t)
 
 ;;set the title bar 让标题栏显示点有用的信息
 (setq frame-title-format "emacs@%b")
@@ -24,7 +26,7 @@
 (mouse-avoidance-mode 'animate)
 
 ;;配置ibus
-(ibus-mode t)
+;(ibus-mode t)
 
 ;;全局剪切板
 (setq x-select-enable-clipboard t)
@@ -58,9 +60,9 @@
 (add-to-list 'ac-dictionary-directories "~/emacs/auto-complete/ac-dict")
 (ac-config-default)
 
-;; config for gtags-mode
 
-(global-set-key [(f5)] 'gtags-mode)
+
+
 
 ;;config for cscope
 
@@ -224,9 +226,11 @@
 
 ;;配置gtags
 (add-to-list 'load-path "~/emacs/global")
+(require 'gtags)
 ;(autoload 'gtags-mode "gtags" "" t)
 ;(setq c-mode-hook '(lambda ()
 ;		     (gtags-mode 1)))
+(global-set-key [(f5)] 'gtags-mode)
 (global-set-key (kbd "C-c g f") 'gtags-find-tag)
 (global-set-key (kbd "C-c g p") 'gtags-pop-stack)
 (global-set-key (kbd "C-c g s") 'gtags-select-tag)
@@ -235,14 +239,14 @@
 (add-to-list 'load-path "~/emacs/cscope")
 (require 'xcscope)
 
-;;配置showtip.el
-(add-to-list 'load-path "~/emacs/showtip")
-(require 'showtip)
+;;配置showtip.el,CLI环境不适用
+;;(add-to-list 'load-path "~/emacs/showtip")
+;;(require 'showtip)
 
-;;配置sdcv.el
+;;配置sdcv.el，使用sdcv-mode，针对cli环境，不是用showtip
 (add-to-list 'load-path "~/emacs/sdcv")
-(require 'sdcv)
-(global-set-key [(meta p)] 'sdcv-search-input+)
+(require 'sdcv-mode)
+(global-set-key [(meta p)] 'sdcv-search-input)
 ;;(global-set-key (kbd "M s") 'sdcv-search-pointer+)
 ;;(global-set-key (kbd "M S") 'sdcv-search-input)
 
