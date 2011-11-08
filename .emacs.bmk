@@ -1,0 +1,12 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("General Escape Syntax"
+ (front-context-string . ": `\\U00NNNNNN' r")
+ (rear-context-string . "er than `U+FFFF'")
+ (position . 103552)
+ (filename . "/usr/share/info/emacs-23/elisp")
+ (info-node . "General Escape Syntax")
+ (handler . Info-bookmark-jump))
+)
