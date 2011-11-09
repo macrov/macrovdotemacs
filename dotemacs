@@ -226,8 +226,13 @@
 (add-to-list 'load-path "~/emacs/w3m")
 (require 'w3m)
 (setq w3m-default-display-inline-images t)
-
-
+(setq w3m-use-cookies t) ;;配置w3m使用cookie
+(setq w3m-display-inline-images t)
+(setq w3m-home-page "www.google.com.hk");;配置w3m首页
+;;当用 shift+RET 打开新链接时将不自动跳转到新的页面，等提示已经完全打开，才用 C-c C-n ，  
+;;C-c C-p 打开，这个好用                             
+(setq w3m-view-this-url-new-session-in-background t)                             
+;;(add-hook 'w3m-fontify-after-hook 'remove-w3m-output-garbages) 
 
 
 ;;配置自己的info路径
@@ -260,3 +265,8 @@
 ;;(global-set-key (kbd "M s") 'sdcv-search-pointer+)
 ;;(global-set-key (kbd "M S") 'sdcv-search-input)
 
+
+;;配置multi-term
+(add-to-list 'load-path "~/emacs/multi-term")
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
