@@ -267,6 +267,6 @@
 
 
 ;;配置multi-term
-(add-to-list 'load-path "~/emacs/multi-term")
-(require 'multi-term)
-(setq multi-term-program "/bin/bash")
+;;(add-to-list 'load-path "~/emacs/multi-term")
+;;(require 'multi-term)
+;;(setq multi-term-program "/bin/bash")
