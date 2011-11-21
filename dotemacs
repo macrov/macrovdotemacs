@@ -67,6 +67,11 @@
 
 (global-set-key [(f5)] 'gtags-mode)
 
+;;配置session
+(add-to-list 'load-path "~/emacs/session")
+(require 'session)
+
+
 ;;config for cscope
 
 ;(add-to-list 'load-path "~/emacs/cscope")
@@ -92,7 +97,8 @@
  '(ecb-windows-width 0.2)
  '(inhibit-startup-screen t)
  '(linum-mode nil t)
- '(make-backup-files nil))
+ '(make-backup-files nil)
+ '(session-use-package t nil (session)))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -270,3 +276,10 @@
 ;;(add-to-list 'load-path "~/emacs/multi-term")
 ;;(require 'multi-term)
 ;;(setq multi-term-program "/bin/bash")
+
+
+(load-file "~/emacs/dabbrev/dabbrev.elc")
+(require 'dabbrev)
+(setq dabbrev-dictionary "~/emacs/dabbrev/American-English.dab")
+
+
