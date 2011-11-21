@@ -22,6 +22,9 @@
 ;;开启光标所在行高亮显示
 (global-hl-line-mode t)
 
+;;配置打开文件的缺省路径
+(setq default-directory "~")
+
 ;;set the title bar 让标题栏显示点有用的信息
 (setq frame-title-format "emacs@%b")
 
@@ -272,14 +275,15 @@
 ;;(global-set-key (kbd "M S") 'sdcv-search-input)
 
 
-;;配置multi-term
-;;(add-to-list 'load-path "~/emacs/multi-term")
-;;(require 'multi-term)
-;;(setq multi-term-program "/bin/bash")
-
 
 (load-file "~/emacs/dabbrev/dabbrev.elc")
 (require 'dabbrev)
 (setq dabbrev-dictionary "~/emacs/dabbrev/American-English.dab")
 
 
+;;插入当前时间
+(defun my-insert-date ()
+  (interactive)
+  (insert (format-time-string "%Y/%m/%d %H:%M:%S" (current-time))))
+
+(global-set-key (kbd "C-c m d") 'my-insert-date)
