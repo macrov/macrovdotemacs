@@ -32,7 +32,7 @@
 (mouse-avoidance-mode 'animate)
 
 ;;配置ibus
-(ibus-mode t)
+;;(ibus-mode t)
 
 ;;全局剪切板
 (setq x-select-enable-clipboard t)
@@ -276,7 +276,7 @@
 
 
 
-(load-file "~/emacs/dabbrev/dabbrev.elc")
+(load-file "~/emacs/dabbrev/dabbrev.el")
 (require 'dabbrev)
 (setq dabbrev-dictionary "~/emacs/dabbrev/American-English.dab")
 
