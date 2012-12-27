@@ -66,9 +66,6 @@
 (add-to-list 'ac-dictionary-directories "~/emacs/auto-complete/ac-dict")
 (ac-config-default)
 
-;; config for gtags-mode
-
-(global-set-key [(f5)] 'gtags-mode)
 
 ;;配置session
 (add-to-list 'load-path "~/emacs/session")
@@ -90,26 +87,7 @@
 	(t (self-insert-command (or arg 1)))))
 
 
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40")
- '(ecb-source-path (quote ("/home/backfire/work/android-rocket-d140a" "/home/backfire/work/android-rocket-mid")))
- '(ecb-windows-width 0.2)
- '(inhibit-startup-screen t)
- '(linum-mode nil t)
- '(make-backup-files nil)
- '(session-use-package t nil (session)))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
 
-(global-set-key [(f4)] 'ecb-activate)
 
 
 (global-set-key [(f6)] 'emacs-lisp-mode)
@@ -150,67 +128,8 @@
 
 
 
-;;配置cedet
-(add-to-list 'load-path "~/emacs/cedet-1.0pre7/common")
-(add-to-list 'load-path "~/emacs/cedet-1.0pre7/contrib")
-;;(load-file "~/emacs/cedet-1.0pre7/common/cedet.el")
-(require 'cedet)
-(require 'semantic-ia)
-(global-ede-mode 1)                      ; Enable the Project management system
-(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
-(global-srecode-minor-mode 1)            ; Enable template insertion menu
-(require 'semantic-tag-folding nil 'noerror)
-(global-semantic-tag-folding-mode 1)
-(global-set-key [f12] 'semantic-ia-fast-jump)
-(global-set-key [S-f12]
-                (lambda ()
-                  (interactive)
-                  (if (ring-empty-p (oref semantic-mru-bookmark-ring ring))
-                      (error "Semantic Bookmark ring is currently empty"))
-                  (let* ((ring (oref semantic-mru-bookmark-ring ring))
-                         (alist (semantic-mrub-ring-to-assoc-list ring))
-                         (first (cdr (car alist))))
-                    (if (semantic-equivalent-tag-p (oref first tag)
-                                                   (semantic-current-tag))
-                        (setq first (cdr (car (cdr alist)))))
-                    (semantic-mrub-switch-tags first))))
-;(define-key c-mode-map [M-S-f12] 'semantic-analyze-proto-impl-toggle)
-(global-set-key (kbd "M-q") 'semantic-ia-complete-symbol-menu)
-(define-key semantic-tag-folding-mode-map (kbd "C-c , -") 'semantic-tag-folding-fold-block)
-(define-key semantic-tag-folding-mode-map (kbd "C-c , +") 'semantic-tag-folding-show-block)
-(define-key semantic-tag-folding-mode-map (kbd "C-_") 'semantic-tag-folding-fold-all)
-(define-key semantic-tag-folding-mode-map (kbd "C-+") 'semantic-tag-folding-show-all)
 
 
-;; (setq semanticdb-project-roots (list (expand-file-name "/")))
-(defconst cedet-user-include-dirs
-  (list 
-   "/home/backfire/work/android-rocket-d140a/kernel/include"
-   "/home/backfire/work/android-rocket-d140a/kernel/arch/arm/include"
-   "/home/backfire/work/android-rocket-d140a/kernel/arch/arm/mach-rk29/include"
-   ""))
-;; (defconst cedet-win32-include-dirs
-;;   (list "C:/MinGW/include"
-;;         "C:/MinGW/include/c++/3.4.5"
-;;         "C:/MinGW/include/c++/3.4.5/mingw32"
-;;         "C:/MinGW/include/c++/3.4.5/backward"
-;;         "C:/MinGW/lib/gcc/mingw32/3.4.5/include"
-;;         "C:/Program Files/Microsoft Visual Studio/VC98/MFC/Include"))
-(require 'semantic-c nil 'noerror)
-(let ((include-dirs cedet-user-include-dirs))
-  ;; (when (eq system-type 'windows-nt)
-  ;;   (setq include-dirs (append include-dirs cedet-win32-include-dirs)))
-  (mapc (lambda (dir)
-          (semantic-add-system-include dir 'c++-mode)
-          (semantic-add-system-include dir 'c-mode))
-        include-dirs))
-
-
-;;配置ecb
-(add-to-list 'load-path "~/emacs/ecb-2.40")
-(require 'ecb)
-;;关掉每日提示
-(setq ecb-tip-of-the-day nil)
 
 ;; 各窗口间切换
 (global-set-key [C-left] 'windmove-left)
@@ -218,17 +137,7 @@
 (global-set-key [C-up] 'windmove-up)
 (global-set-key [C-down] 'windmove-down)
  
-;; 隐藏和显示ecb窗口
-(define-key global-map [(control f1)] 'ecb-hide-ecb-windows)
-(define-key global-map [(control f2)] 'ecb-show-ecb-windows)
  
-;; 使某一ecb窗口最大化
-;(define-key global-map "/C-c1" 'ecb-maximize-window-directories)
-;(define-key global-map "/C-c2" 'ecb-maximize-window-sources)
-;(define-key global-map "/C-c3" 'ecb-maximize-window-methods)
-;(define-key global-map "/C-c4" 'ecb-maximize-window-history)
-;; 恢复原始窗口布局
-;(define-key global-map "/C-c`" 'ecb-restore-default-window-sizes)
 
 
 ;;配置w3m
