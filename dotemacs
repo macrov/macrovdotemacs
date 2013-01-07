@@ -153,19 +153,7 @@
 (add-to-list `Info-default-directory-list "~/info/gnu-global")
 
 
-;;配置gtags
-(add-to-list 'load-path "~/emacs/global")
-;(autoload 'gtags-mode "gtags" "" t)
-;(setq c-mode-hook '(lambda ()
-;		     (gtags-mode 1)))
-(global-set-key (kbd "C-c g f") 'gtags-find-tag)
-(global-set-key (kbd "C-c g p") 'gtags-pop-stack)
-(global-set-key (kbd "C-c g s") 'gtags-select-tag)
-
-;;set the cscope
-(add-to-list 'load-path "~/emacs/cscope")
-(require 'xcscope)
-
+;
 ;;配置showtip.el
 (add-to-list 'load-path "~/emacs/showtip")
 (require 'showtip)
@@ -196,14 +184,14 @@
 ;;set shell messy code
 (ansi-color-for-comint-mode-on)
 
+;;start the emacs server
+(server-start)
+
 
 ;;setting for python 
 
 
 ;;pymacs-load
-;;(setq my-dot-emacs-dir "~/.emacs.d")
-;;(setq my-vendor-emacs-dir (concat my-dot-emacs-dir "/vendor"))
-;;(add-to-list 'load-path my-vendor-emacs-dir)
 (add-to-list 'load-path "~/emacs/pymacs")
 (require 'pymacs)
 
