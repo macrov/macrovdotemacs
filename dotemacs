@@ -1,13 +1,12 @@
-;;引入网络配置
-;;(load-file "/home/backfire/macrovdotemacs/net/netel")
-
-
 ;;简单的小配置，让emacs更舒服
 
 ;bindding the windows enlarge&shrink to C-F11&F12
 
-(global-set-key [(ctrl f12)] 'shrink-window-horizontally)
-(global-set-key [(ctrl f11)] 'enlarge-window-horizontally)
+(global-set-key [(ctrl shift f11)] 'shrink-window-horizontally)
+(global-set-key [(ctrl shift f12)] 'enlarge-window-horizontally)
+(global-set-key [(ctrl f11)] 'shrink-window)
+(global-set-key [(ctrl f12)] 'enlarge-window)
+
 
 ;; always show line numbers
 (global-linum-mode 1)
@@ -52,11 +51,6 @@
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
     '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
 
-
-
-;;关闭自动备份和自动保存，就是"文件名~"和"#文件名#"这样的文件。
-(setq make-backup-files nil) ; stop creating those backup~ files关闭备份和自动保存
-(setq auto-save-default nil) ; stop creating those #autosave# files
 
 
 
@@ -146,7 +140,7 @@
 (setq w3m-default-display-inline-images t)
 (setq w3m-use-cookies t) ;;配置w3m使用cookie
 (setq w3m-display-inline-images t)
-(setq w3m-home-page "www.google.com.hk");;配置w3m首页
+(setq w3m-home-page "www.google.com");;配置w3m首页
 ;;当用 shift+RET 打开新链接时将不自动跳转到新的页面，等提示已经完全打开，才用 C-c C-n ，  
 ;;C-c C-p 打开，这个好用                             
 (setq w3m-view-this-url-new-session-in-background t)                             
@@ -180,14 +174,15 @@
 (add-to-list 'load-path "~/emacs/sdcv")
 (require 'sdcv)
 (global-set-key [(meta p)] 'sdcv-search-input+)
+(global-set-key [(meta l)] 'sdcv-search-input)
 ;;(global-set-key (kbd "M s") 'sdcv-search-pointer+)
 ;;(global-set-key (kbd "M S") 'sdcv-search-input)
 
 
-
+(setq dabbrev-dictionary "~/emacs/dabbrev/American-English.dab")
 (load-file "~/emacs/dabbrev/dabbrev.el")
 (require 'dabbrev)
-(setq dabbrev-dictionary "~/emacs/dabbrev/American-English.dab")
+
 
 
 ;;插入当前时间
@@ -196,3 +191,31 @@
   (insert (format-time-string "%Y/%m/%d %H:%M:%S" (current-time))))
 
 (global-set-key (kbd "C-c m d") 'my-insert-date)
+
+
+;;set shell messy code
+(ansi-color-for-comint-mode-on)
+
+
+;;setting for python 
+
+
+;;pymacs-load
+;;(setq my-dot-emacs-dir "~/.emacs.d")
+;;(setq my-vendor-emacs-dir (concat my-dot-emacs-dir "/vendor"))
+;;(add-to-list 'load-path my-vendor-emacs-dir)
+(add-to-list 'load-path "~/emacs/pymacs")
+(require 'pymacs)
+
+(setq py-load-pymacs-p nil)
+
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+(autoload 'pymacs-autoload "pymacs")
+
+
+(pymacs-load "ropemacs" "rope-")
+(setq ropemacs-enable-autoimport t)
